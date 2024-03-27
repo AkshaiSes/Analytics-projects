@@ -1,0 +1,566 @@
+Create database Envirmonment;
+use Envirmonment;
+CREATE TABLE Customer
+  (
+  CustID    CHAR(5)   NOT NULL,
+  CustName  CHAR(255) NOT NULL,
+  CustZipcode CHAR(255),
+  CONSTRAINT pk_Customer PRIMARY KEY (CustID)
+  );
+CREATE TABLE Reports
+  (
+  ReportID    CHAR(5)   NOT NULL,
+  Test_Date   Date      NOT NULL,
+  Validity    DATE      NOT NULL,
+  Observations VARCHAR(255),
+  StdRange CHAR(7),
+  CONSTRAINT pk_Reports PRIMARY KEY (ReportID)
+  );
+  
+CREATE TABLE Cases
+  (
+  CaseID    CHAR(5)     NOT NULL,
+  TestName VARCHAR(15)  NOT NULL,
+  CONSTRAINT pk_Cases PRIMARY KEY (CaseID)
+  );
+
+CREATE TABLE Inspector
+  (
+  InspectorID    Char(5)    NOT NULL,
+  InspectorName Char(20)    NOT NULL,
+  CONSTRAINT pk_Inspector PRIMARY KEY (InspectorID)
+  );
+
+CREATE TABLE Insurance
+  (
+  PolicyID    CHAR(5)     NOT NULL,
+  PolicyName VARCHAR(255) NOT NULL,
+  CONSTRAINT pk_Insurance PRIMARY KEY (PolicyID)
+  );
+
+CREATE TABLE Equipment
+  (
+  PartID   CHAR(5)     NOT NULL,
+  PartName CHAR(15)    NOT NULL,
+  CONSTRAINT pk_Equipment PRIMARY KEY (PartID)
+  );
+
+drop table Supplier
+CREATE TABLE Supplier
+  (
+  SupplierID   Char(5)     NOT NULL,
+  SupplierName Char(20)    NOT NULL,
+  CONSTRAINT pk_Supplier PRIMARY KEY (SupplierID)
+  );
+
+CREATE TABLE Plans
+  (
+  PlanID   CHAR(5)     NOT NULL,
+  PlanType CHAR(20)    NOT NULL,
+  CONSTRAINT pk_Plans PRIMARY KEY (PlanID)
+  );
+drop table Details
+CREATE TABLE Details
+  (
+  CustID      CHAR(5)  NOT NULL,
+  ReportID    CHAR(5),
+  InspectorID CHAR(5),
+  PolicyID    CHAR(5)  NOT NULL,
+  PlanID      CHAR(5)  NOT NULL,
+  CaseID      Char(5),
+  PartID      CHAR(5)  NOT NULL,
+  SupplierID  CHAR(5)  NOT NULL,
+  CONSTRAINT fk_Details_Customer FOREIGN KEY(CustID) REFERENCES Customer(CustID),
+  CONSTRAINT fk_Details_Reports FOREIGN KEY(ReportID) REFERENCES Reports(ReportID),
+  CONSTRAINT fk_Details_Inspector FOREIGN KEY(InspectorID) REFERENCES Inspector(InspectorID),
+  CONSTRAINT fk_Details_Insurance FOREIGN KEY(PolicyID) REFERENCES Insurance(PolicyID),
+  CONSTRAINT fk_Details_Plans FOREIGN KEY(PlanID) REFERENCES Plans(PlanID),
+  CONSTRAINT fk_Details_Cases FOREIGN KEY(CaseID) REFERENCES Cases(CaseID),
+  CONSTRAINT fk_Details_Equipment FOREIGN KEY(PartID) REFERENCES Equipment(PartID),
+  CONSTRAINT fk_Details_Supplier FOREIGN KEY(SupplierID) REFERENCES Supplier(SupplierID)
+  );
+
+  
+ 
+INSERT INTO Customer VALUES('101','GILMORE','75252');
+INSERT INTO Customer VALUES('102','Waters','95032');
+INSERT INTO Customer VALUES('103','Harrison','75280');
+INSERT INTO Customer VALUES('104','Moon','98070');
+INSERT INTO Customer VALUES('105','Townsend','75252');
+
+INSERT INTO Equipment VALUES('123','Sprocket');
+INSERT INTO Equipment VALUES('234','Gear');
+INSERT INTO Equipment VALUES('516','Mesh');
+INSERT INTO Equipment VALUES('537','Fishbone');
+INSERT INTO Equipment VALUES('420','Spur');
+INSERT INTO Equipment VALUES('421','Helic');
+INSERT INTO Equipment VALUES('987','Harness');
+INSERT INTO Equipment VALUES('920','Fastener');
+INSERT INTO Equipment VALUES('846','Calliper');
+
+INSERT INTO Reports VALUES('701','4/8/18','10/8/18','234','250');
+INSERT INTO Reports VALUES('723','5/14/18','12/14/18','2414','2500');
+INSERT INTO Reports VALUES('735','9/14/18','3/14/19','474','520');
+INSERT INTO Reports VALUES('892','12/26/18','5/25/19','131','150');
+INSERT INTO Reports VALUES('690','1/31/19','7/30/19','646','670');
+INSERT INTO Reports VALUES('920','4/14/19','10/13/19','132','160');
+INSERT INTO Reports VALUES('720','9/1/19','3/31/19','786','900');
+INSERT INTO Reports VALUES('420','10/24/19','4/23/20','323','400');
+INSERT INTO Reports VALUES('411','9/14/18','4/3/20','234','250');
+INSERT INTO Reports VALUES('444','2/2/20','8/23/20','564','560');
+INSERT INTO Reports VALUES('666','3/2/20','9/3/20','232','230');
+INSERT INTO Reports VALUES('891','4/4/20','10/27/20','576','590');
+INSERT INTO Reports VALUES('762','5/31/20','12/20/20','786','790');
+INSERT INTO Reports VALUES('125','8/8/20','3/24/20','233','240');
+
+select * From Reports
+
+INSERT INTO Supplier  VALUES('632','Minda');
+INSERT INTO Supplier  VALUES('678','Bosch');
+INSERT INTO Supplier  VALUES('175','Schlumberger');
+INSERT INTO Supplier  VALUES('690','Lara');
+INSERT INTO Supplier  VALUES('642','Schneider ');
+INSERT INTO Supplier  VALUES('679','Khemchand');
+INSERT INTO Supplier  VALUES('900','Siemens');
+
+select * from Supplier
+
+INSERT INTO Inspector  VALUES ('201','John');
+INSERT INTO Inspector  VALUES ('210','Mike');
+INSERT INTO Inspector  VALUES ('270','Doron');
+INSERT INTO Inspector  VALUES ('252','Solomon');
+INSERT INTO Inspector  VALUES ('281','Jacob');
+
+select * from Inspector
+
+INSERT INTO Insurance VALUES ('80','Gold')
+INSERT INTO Insurance VALUES ('82','Platinum')
+INSERT INTO Insurance VALUES ('93','Diamond')
+INSERT INTO Insurance VALUES ('94','Tiffany')
+INSERT INTO Insurance VALUES ('88','Mercury')
+INSERT INTO Insurance VALUES ('89','Company')
+INSERT INTO Insurance VALUES ('92','Tanishq')
+INSERT INTO Insurance VALUES ('91','Swaroski')
+INSERT INTO Insurance VALUES ('72','Titan')
+select * from Insurance
+
+
+INSERT INTO Plans VALUES ('6','Britan')
+INSERT INTO Plans VALUES ('4','test 4')
+INSERT INTO Plans VALUES ('3','Tomatillo')
+INSERT INTO Plans VALUES ('8','Squash')
+INSERT INTO Plans VALUES ('1','Mango')
+INSERT INTO Plans VALUES ('2','test 7')
+INSERT INTO Plans VALUES ('7','test 7')
+INSERT INTO Plans VALUES ('5','China')
+
+
+INSERT INTO Cases VALUES ('20','Acid PM 2');
+INSERT INTO Cases VALUES ('21','Acid PM 2');
+INSERT INTO Cases VALUES ('42','Solvent');
+INSERT INTO Cases VALUES ('43','Solvent');
+INSERT INTO Cases VALUES ('33','Base  Emission');
+INSERT INTO Cases VALUES ('80','GCarsinogen ');
+INSERT INTO Cases VALUES ('34','Base  Emission');
+INSERT INTO Cases VALUES ('10','Emission');
+INSERT INTO Cases VALUES ('11','Emission');
+INSERT INTO Cases VALUES ('22','Litmus test');
+INSERT INTO Cases VALUES ('70','N20');
+INSERT INTO Cases VALUES ('71','N20');
+INSERT INTO Cases VALUES ('50','PM 10');
+INSERT INTO Cases VALUES ('51','PM 10');
+
+
+INSERT INTO Details VALUES ('101','701','201','80','6','20','123','632');
+INSERT INTO Details VALUES ('101','723','281','80','6','21','123','632');
+INSERT INTO Details VALUES ('101','735','201','82','4','42','234','678');	
+INSERT INTO Details VALUES ('101','892','201','82','4','43','234','690');
+INSERT INTO Details VALUES ('102','690','281','93','3','33','516','175');
+INSERT INTO Details VALUES ('102','920','201','93','8','80','516','175');
+INSERT INTO Details VALUES ('102','720','210','94','3','34','537','175');
+INSERT INTO Details VALUES ('103','420','281','88','1','10','420','900');
+INSERT INTO Details VALUES ('103','411','270','89','1','11','421','900');
+INSERT INTO Details VALUES ('104','444','201','92','2','22','987','632');
+INSERT INTO Details VALUES ('104','666','252','91','7','70','920','632');
+INSERT INTO Details VALUES ('104','891','252','91','7','71','920','678');
+INSERT INTO Details VALUES ('105','762','281','72','5','50','846','678');
+INSERT INTO Details VALUES ('105','125','281','72','5','51','846','900');
+
+
+
+SELECT * FROM Customer
+
+SELECT * FROM Reports
+
+SELECT * FROM Equipment
+
+SELECT * FROM Supplier
+
+SELECT * FROM Inspector
+
+SELECT * FROM Insurance
+
+SELECT * FROM Plans
+
+SELECT * FROM Cases
+
+SELECT * FROM Details
+
+/* Inner Joint */
+
+Select Details.CustID, Customer.CustID,Customer.CustName,Customer.CustZipcode, Reports.Test_Date, 
+Reports.ReportID,  Reports.Observations, Reports.StdRange
+from Customer INNER JOIN Details 
+on Customer.CustID=Details.CustID INNER JOIN Reports
+on Details.ReportID=Reports.ReportID
+Where Details.CustID = '101' 
+
+/* Outer Joint */
+
+Select Reports.ReportID, Reports.Test_Date, Reports.Observations, Inspector.InspectorName, Inspector.InspectorName, Insurance.PolicyName
+from Inspector FULL OUTER JOIN Reports 
+on Inspector.InspectorID=Reports.ReportID FULL OUTER JOIN Insurance 
+on Reports.ReportID=Insurance.PolicyName
+
+/* Left Outer Join*/
+
+Select Insurance.PolicyID, Insurance.PolicyName, Details.InspectorID
+from Insurance LEFT OUTER JOIN Detait
+on Insurance.PolicyID=Details.InspectorID
+
+Select Cases.CaseID,Cases.TestName,Plans.PlanType,Plans.PlanID
+from Plans LEFT OUTER JOIN Details
+on Plans.PlanID=Details.PlanID LEFT OUTER JOIN Cases
+on Details.CaseID=Cases.CaseID
+
+Select * from Cases
+select * from Plans
+
+
+/*Right Outer Join*/
+
+Select Supplier.SupplierID, Supplier.SupplierName, Equipment.PartID, Equipment.PartName
+from  Supplier RIGHT OUTER JOIN Equipment
+on Supplier.SupplierID=Equipment.PartID
+
+Select Supplier.SupplierID, Supplier.SupplierName, Equipment.PartID, Equipment.PartName
+from Supplier LEFT OUTER JOIN Details
+on Supplier.SupplierID =Details.SupplierID LEFT OUTER JOIN Equipment
+on Details.PartID=Equipment.PartID
+
+
+Select Reports.ReportID, Reports.Observations, Inspector.InspectorID, Inspector.InspectorName
+from  Reports RIGHT OUTER JOIN Inspector
+on Reports.ReportID=Inspector.InspectorID
+
+/*Intersect*/
+
+Select CustID from Customer
+INTERSECT
+Select CustID from Details
+
+/* Union*/
+
+Select PlanType from Plans
+UNION
+Select CaseID from Cases
+
+/*Except*/
+
+Select Repo ID from Reports
+EXCEPT
+Select InspectorID from Reports
+
+
+
+/*********************####################**********************#################_______________*/
+
+Create database ECommerce;
+use ECommerce;
+CREATE TABLE Information
+  (
+  OrderID    CHAR(5)   NOT NULL,
+  BuyerID    CHAR(15) NOT NULL,
+  SellerID    CHAR(15),
+  ShipperID   CHAR(15),
+  PaymentID  CHAR(15),
+  ProductID  CHAR(15),
+  CONSTRAINT fk_Information_Order FOREIGN KEY(OrderID) REFERENCES Order(OrderID),
+  CONSTRAINT fk_Information_Buyer FOREIGN KEY(BuyerID) REFERENCES Buyer(BuyerID),
+  CONSTRAINT fk_Information_Seller FOREIGN KEY(SellerID) REFERENCES Seller(SellerID),
+  CONSTRAINT fk_Information_Shipping FOREIGN KEY(ShippingID) REFERENCES Shipper(ShipperID),
+  CONSTRAINT fk_Information_Payment FOREIGN KEY(PaymentID) REFERENCES Payment(PaymentID),
+  CONSTRAINT fk_Information_Product FOREIGN KEY(ProductID) REFERENCES Product(ProductID),
+  );
+CREATE TABLE Product
+  (
+  ProductID    CHAR(5)          NOT NULL,
+  ProductName  Varchar(255)      NOT NULL,
+  Product_Qty    Varchar(255)      NOT NULL,
+  Product_Rank   VARCHAR(255),
+  Product Price  VARCHAR(255),
+  Product Stock VARCHAR(255),
+  CONSTRAINT pk_Product PRIMARY KEY ( ProductID)
+  );
+  
+CREATE TABLE Buyer
+  (
+  BuyerID    CHAR(5)     NOT NULL,
+  BuyerName VARCHAR(15)  NOT NULL,
+  Buyer Email VARCHAR(15)  NOT NULL,
+  Buyer_Address VARCHAR(15)  NOT NULL,
+  Buyer Contact VARCHAR(15)  NOT NULL,
+  CONSTRAINT pk_Buyer PRIMARY KEY (BuyerID)
+  );
+
+CREATE TABLE Seller
+  (
+  SellerID    Char(5)    NOT NULL,
+  Seller_Rank Char(20)    NOT NULL,
+  Seller_Name VarChar(20)    NOT NULL,
+  Seller_Address Char(20)    NOT NULL,
+  Seller Contact Char(20)    NOT NULL,
+  CONSTRAINT pk_Seller PRIMARY KEY (SellerID)
+  );
+
+CREATE TABLE Shipping
+  (
+  ShipperID    CHAR(5)     NOT NULL,
+  Shipper_Name VARCHAR(255) NOT NULL,
+  Shipper Contact VARCHAR(255) NOT NULL,
+  Shipper Email VARCHAR(255) NOT NULL,
+  CONSTRAINT pk_Shipping PRIMARY KEY (ShippingID)
+  );
+
+CREATE TABLE ORDER
+  (
+  OrderID   CHAR(5)     NOT NULL,
+  Order_Status CHAR(15)    NOT NULL,
+  Order Price Char(15),
+  Order_Date Char(15),
+  Delivery_Date Char(15),
+  CONSTRAINT pk_Order PRIMARY KEY (OrderID)
+  );
+
+drop table Payment
+CREATE TABLE Payment
+  (
+  PaymentID   Char(5)     NOT NULL,
+  Invoice Char(20)    NOT NULL,
+  Payment Mode VarChar(20),
+  Payment_Status Char(20)
+  CONSTRAINT pk_Payment PRIMARY KEY (PaymentID)
+  );
+
+
+drop table Details
+CREATE TABLE Details
+  (
+  CustID      CHAR(5)  NOT NULL,
+  ReportID    CHAR(5),
+  InspectorID CHAR(5),
+  PolicyID    CHAR(5)  NOT NULL,
+  PlanID      CHAR(5)  NOT NULL,
+  CaseID      Char(5),
+  PartID      CHAR(5)  NOT NULL,
+  SupplierID  CHAR(5)  NOT NULL,
+  CONSTRAINT fk_Details_Customer FOREIGN KEY(CustID) REFERENCES Customer(CustID),
+  CONSTRAINT fk_Details_Reports FOREIGN KEY(ReportID) REFERENCES Reports(ReportID),
+  CONSTRAINT fk_Details_Inspector FOREIGN KEY(InspectorID) REFERENCES Inspector(InspectorID),
+  CONSTRAINT fk_Details_Insurance FOREIGN KEY(PolicyID) REFERENCES Insurance(PolicyID),
+  CONSTRAINT fk_Details_Plans FOREIGN KEY(PlanID) REFERENCES Plans(PlanID),
+  CONSTRAINT fk_Details_Cases FOREIGN KEY(CaseID) REFERENCES Cases(CaseID),
+  CONSTRAINT fk_Details_Equipment FOREIGN KEY(PartID) REFERENCES Equipment(PartID),
+  CONSTRAINT fk_Details_Supplier FOREIGN KEY(SupplierID) REFERENCES Supplier(SupplierID)
+  );
+
+  
+ 
+INSERT INTO Customer VALUES('101','GILMORE','75252');
+INSERT INTO Customer VALUES('102','Waters','95032');
+INSERT INTO Customer VALUES('103','Harrison','75280');
+INSERT INTO Customer VALUES('104','Moon','98070');
+INSERT INTO Customer VALUES('105','Townsend','75252');
+
+INSERT INTO Equipment VALUES('123','Sprocket');
+INSERT INTO Equipment VALUES('234','Gear');
+INSERT INTO Equipment VALUES('516','Mesh');
+INSERT INTO Equipment VALUES('537','Fishbone');
+INSERT INTO Equipment VALUES('420','Spur');
+INSERT INTO Equipment VALUES('421','Helic');
+INSERT INTO Equipment VALUES('987','Harness');
+INSERT INTO Equipment VALUES('920','Fastener');
+INSERT INTO Equipment VALUES('846','Calliper');
+
+INSERT INTO Reports VALUES('701','4/8/18','10/8/18','234','250');
+INSERT INTO Reports VALUES('723','5/14/18','12/14/18','2414','2500');
+INSERT INTO Reports VALUES('735','9/14/18','3/14/19','474','520');
+INSERT INTO Reports VALUES('892','12/26/18','5/25/19','131','150');
+INSERT INTO Reports VALUES('690','1/31/19','7/30/19','646','670');
+INSERT INTO Reports VALUES('920','4/14/19','10/13/19','132','160');
+INSERT INTO Reports VALUES('720','9/1/19','3/31/19','786','900');
+INSERT INTO Reports VALUES('420','10/24/19','4/23/20','323','400');
+INSERT INTO Reports VALUES('411','9/14/18','4/3/20','234','250');
+INSERT INTO Reports VALUES('444','2/2/20','8/23/20','564','560');
+INSERT INTO Reports VALUES('666','3/2/20','9/3/20','232','230');
+INSERT INTO Reports VALUES('891','4/4/20','10/27/20','576','590');
+INSERT INTO Reports VALUES('762','5/31/20','12/20/20','786','790');
+INSERT INTO Reports VALUES('125','8/8/20','3/24/20','233','240');
+
+select * From Reports
+
+INSERT INTO Supplier  VALUES('632','Minda');
+INSERT INTO Supplier  VALUES('678','Bosch');
+INSERT INTO Supplier  VALUES('175','Schlumberger');
+INSERT INTO Supplier  VALUES('690','Lara');
+INSERT INTO Supplier  VALUES('642','Schneider ');
+INSERT INTO Supplier  VALUES('679','Khemchand');
+INSERT INTO Supplier  VALUES('900','Siemens');
+
+select * from Supplier
+
+INSERT INTO Inspector  VALUES ('201','John');
+INSERT INTO Inspector  VALUES ('210','Mike');
+INSERT INTO Inspector  VALUES ('270','Doron');
+INSERT INTO Inspector  VALUES ('252','Solomon');
+INSERT INTO Inspector  VALUES ('281','Jacob');
+
+select * from Inspector
+
+INSERT INTO Insurance VALUES ('80','Gold')
+INSERT INTO Insurance VALUES ('82','Platinum')
+INSERT INTO Insurance VALUES ('93','Diamond')
+INSERT INTO Insurance VALUES ('94','Tiffany')
+INSERT INTO Insurance VALUES ('88','Mercury')
+INSERT INTO Insurance VALUES ('89','Company')
+INSERT INTO Insurance VALUES ('92','Tanishq')
+INSERT INTO Insurance VALUES ('91','Swaroski')
+INSERT INTO Insurance VALUES ('72','Titan')
+select * from Insurance
+
+
+INSERT INTO Plans VALUES ('6','Britan')
+INSERT INTO Plans VALUES ('4','test 4')
+INSERT INTO Plans VALUES ('3','Tomatillo')
+INSERT INTO Plans VALUES ('8','Squash')
+INSERT INTO Plans VALUES ('1','Mango')
+INSERT INTO Plans VALUES ('2','test 7')
+INSERT INTO Plans VALUES ('7','test 7')
+INSERT INTO Plans VALUES ('5','China')
+
+
+INSERT INTO Cases VALUES ('20','Acid PM 2');
+INSERT INTO Cases VALUES ('21','Acid PM 2');
+INSERT INTO Cases VALUES ('42','Solvent');
+INSERT INTO Cases VALUES ('43','Solvent');
+INSERT INTO Cases VALUES ('33','Base  Emission');
+INSERT INTO Cases VALUES ('80','GCarsinogen ');
+INSERT INTO Cases VALUES ('34','Base  Emission');
+INSERT INTO Cases VALUES ('10','Emission');
+INSERT INTO Cases VALUES ('11','Emission');
+INSERT INTO Cases VALUES ('22','Litmus test');
+INSERT INTO Cases VALUES ('70','N20');
+INSERT INTO Cases VALUES ('71','N20');
+INSERT INTO Cases VALUES ('50','PM 10');
+INSERT INTO Cases VALUES ('51','PM 10');
+
+
+INSERT INTO Details VALUES ('101','701','201','80','6','20','123','632');
+INSERT INTO Details VALUES ('101','723','281','80','6','21','123','632');
+INSERT INTO Details VALUES ('101','735','201','82','4','42','234','678');	
+INSERT INTO Details VALUES ('101','892','201','82','4','43','234','690');
+INSERT INTO Details VALUES ('102','690','281','93','3','33','516','175');
+INSERT INTO Details VALUES ('102','920','201','93','8','80','516','175');
+INSERT INTO Details VALUES ('102','720','210','94','3','34','537','175');
+INSERT INTO Details VALUES ('103','420','281','88','1','10','420','900');
+INSERT INTO Details VALUES ('103','411','270','89','1','11','421','900');
+INSERT INTO Details VALUES ('104','444','201','92','2','22','987','632');
+INSERT INTO Details VALUES ('104','666','252','91','7','70','920','632');
+INSERT INTO Details VALUES ('104','891','252','91','7','71','920','678');
+INSERT INTO Details VALUES ('105','762','281','72','5','50','846','678');
+INSERT INTO Details VALUES ('105','125','281','72','5','51','846','900');
+
+
+
+SELECT * FROM Customer
+
+SELECT * FROM Reports
+
+SELECT * FROM Equipment
+
+SELECT * FROM Supplier
+
+SELECT * FROM Inspector
+
+SELECT * FROM Insurance
+
+SELECT * FROM Plans
+
+SELECT * FROM Cases
+
+SELECT * FROM Details
+
+/* Inner Joint */
+
+Select Details.CustID, Customer.CustID,Customer.CustName,Customer.CustZipcode, Reports.Test_Date, 
+Reports.ReportID,  Reports.Observations, Reports.StdRange
+from Customer INNER JOIN Details 
+on Customer.CustID=Details.CustID INNER JOIN Reports
+on Details.ReportID=Reports.ReportID
+Where Details.CustID = '101' 
+
+/* Outer Joint */
+
+Select Reports.ReportID, Reports.Test_Date, Reports.Observations, Inspector.InspectorName, Inspector.InspectorName, Insurance.PolicyName
+from Inspector FULL OUTER JOIN Reports 
+on Inspector.InspectorID=Reports.ReportID FULL OUTER JOIN Insurance 
+on Reports.ReportID=Insurance.PolicyName
+
+/* Left Outer Join*/
+
+Select Insurance.PolicyID, Insurance.PolicyName, Details.InspectorID
+from Insurance LEFT OUTER JOIN Detait
+on Insurance.PolicyID=Details.InspectorID
+
+Select Cases.CaseID,Cases.TestName,Plans.PlanType,Plans.PlanID
+from Plans LEFT OUTER JOIN Details
+on Plans.PlanID=Details.PlanID LEFT OUTER JOIN Cases
+on Details.CaseID=Cases.CaseID
+
+Select * from Cases
+select * from Plans
+
+
+/*Right Outer Join*/
+
+Select Supplier.SupplierID, Supplier.SupplierName, Equipment.PartID, Equipment.PartName
+from  Supplier RIGHT OUTER JOIN Equipment
+on Supplier.SupplierID=Equipment.PartID
+
+Select Supplier.SupplierID, Supplier.SupplierName, Equipment.PartID, Equipment.PartName
+from Supplier LEFT OUTER JOIN Details
+on Supplier.SupplierID =Details.SupplierID LEFT OUTER JOIN Equipment
+on Details.PartID=Equipment.PartID
+
+
+Select Reports.ReportID, Reports.Observations, Inspector.InspectorID, Inspector.InspectorName
+from  Reports RIGHT OUTER JOIN Inspector
+on Reports.ReportID=Inspector.InspectorID
+
+/*Intersect*/
+
+Select CustID from Customer
+INTERSECT
+Select CustID from Details
+
+/* Union*/
+
+Select PlanType from Plans
+UNION
+Select CaseID from Cases
+
+/*Except*/
+
+Select Repo ID from Reports
+EXCEPT
+Select InspectorID from Reports
