@@ -1,8 +1,10 @@
 {
  "cells": [
   {
-   "cell_type": "markdown",
+   "cell_type": "code",
+   "execution_count": 14,
    "metadata": {},
+   "outputs": [],
    "source": [
     "# Project 1\n",
     "\n",
